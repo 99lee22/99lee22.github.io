@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>이승민 - 포트폴리오</title>
+    <title>이승민 - 그래픽 디자이너 포트폴리오</title>
     <style>
+        /* 기본 리셋 및 전역 스타일 */
         * {
             margin: 0;
             padding: 0;
@@ -12,73 +13,665 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background-color: #FFFFFF;
+            color: #000000;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* 네비게이션 바 */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: #FFFFFF;
+            border-bottom: 1px solid #808080;
+            padding: 20px 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        nav.scrolled {
+            padding: 15px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        nav .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #000000;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #000000;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #808080;
+        }
+
+        /* 햄버거 메뉴 (모바일) */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background-color: #000000;
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        /* 히어로 섹션 */
+        .hero {
             height: 100vh;
             display: flex;
-            justify-content: center;
             align-items: center;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
+            justify-content: center;
+            text-align: center;
+            padding: 80px 20px 20px;
+        }
+
+        .hero-content h1 {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            font-weight: 300;
+            letter-spacing: -2px;
+        }
+
+        .hero-content h2 {
+            font-size: 1.5rem;
+            color: #808080;
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+
+        .hero-content p {
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+            color: #000000;
+        }
+
+        /* 공통 섹션 스타일 */
+        section {
+            padding: 100px 20px;
         }
 
         .container {
-            text-align: center;
-            padding: 40px;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-            animation: fadeIn 1s ease-in;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
-        .profile-img {
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            text-align: center;
+            font-weight: 300;
+            letter-spacing: -1px;
+        }
+
+        /* About 섹션 */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .about-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            transition: transform 0.5s ease, filter 0.5s ease;
+        }
+
+        .about-image:hover {
+            transform: scale(1.05);
+            filter: blur(2px);
+        }
+
+        .about-text p {
+            margin-bottom: 20px;
+            color: #000000;
+            line-height: 1.8;
+        }
+
+        /* Skills 섹션 */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .skill-card {
+            padding: 30px;
+            border: 1px solid #808080;
+            transition: transform 0.5s ease, filter 0.5s ease, box-shadow 0.5s ease;
+        }
+
+        .skill-card:hover {
+            transform: scale(1.05);
+            filter: blur(2px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .skill-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            font-weight: 400;
+        }
+
+        .skill-card p {
+            color: #808080;
+        }
+
+        /* Projects 섹션 */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .project-card {
+            cursor: pointer;
+            overflow: hidden;
+            border: 1px solid #808080;
+        }
+
+        .project-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            transition: transform 0.5s ease, filter 0.5s ease;
+        }
+
+        .project-card:hover .project-image {
+            transform: scale(1.05);
+            filter: blur(2px);
+        }
+
+        .project-info {
+            padding: 20px;
+        }
+
+        .project-info h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            font-weight: 400;
+        }
+
+        .project-info p {
+            color: #808080;
+        }
+
+        /* 모달 */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.9);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            max-width: 900px;
+            background-color: #FFFFFF;
+            padding: 40px;
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #000000;
+            transition: color 0.3s ease;
+        }
+
+        .modal-close:hover {
+            color: #808080;
+        }
+
+        .modal-image {
+            width: 100%;
+            height: 400px;
             object-fit: cover;
             margin-bottom: 30px;
-            border: 5px solid rgba(255, 255, 255, 0.3);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
         }
 
-        h1 {
-            font-size: 4rem;
-            font-weight: 700;
+        .modal h2 {
+            font-size: 2rem;
             margin-bottom: 20px;
-            letter-spacing: 2px;
+            font-weight: 400;
         }
 
-        p {
+        .modal p {
+            color: #000000;
+            line-height: 1.8;
+        }
+
+        /* Contact 섹션 */
+        .contact {
+            background-color: #000000;
+            color: #FFFFFF;
+        }
+
+        .contact .section-title {
+            color: #FFFFFF;
+        }
+
+        .contact-content {
+            text-align: center;
+        }
+
+        .contact-info {
+            margin-bottom: 40px;
+        }
+
+        .contact-info p {
             font-size: 1.2rem;
-            font-weight: 300;
-            opacity: 0.9;
+            margin-bottom: 10px;
         }
 
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .contact-info a {
+            color: #FFFFFF;
+            text-decoration: none;
+            transition: color 0.3s ease;
         }
 
+        .contact-info a:hover {
+            color: #808080;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .social-links a {
+            color: #FFFFFF;
+            font-size: 1.5rem;
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: #808080;
+            transform: scale(1.2);
+        }
+
+        /* Footer */
+        footer {
+            background-color: #000000;
+            color: #808080;
+            text-align: center;
+            padding: 30px 20px;
+            border-top: 1px solid #808080;
+        }
+
+        footer a {
+            color: #FFFFFF;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        footer a:hover {
+            color: #808080;
+        }
+
+        /* 반응형 디자인 */
         @media (max-width: 768px) {
-            h1 {
+            nav ul {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 70px);
+                background-color: #FFFFFF;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 30px;
+                transition: left 0.3s ease;
+            }
+
+            nav ul.active {
+                left: 0;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+
+            .hero-content h1 {
                 font-size: 2.5rem;
             }
-            p {
-                font-size: 1rem;
+
+            .hero-content h2 {
+                font-size: 1.2rem;
             }
+
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .modal-content {
+                padding: 20px;
+            }
+        }
+
+        /* 스크롤 애니메이션 */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>이승민</h1>
-        <p>포트폴리오 웹사이트에 오신 것을 환영합니다</p>
+    <!-- 네비게이션 -->
+    <nav id="navbar">
+        <div class="container">
+            <div class="logo">이승민</div>
+            <div class="menu-toggle" id="menuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul id="navMenu">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- 히어로 섹션 -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>이승민</h1>
+            <h2>그래픽 디자이너</h2>
+            <p>사람들에게 긍정적인 영향을 주는 디자인을 추구합니다.</p>
+        </div>
+    </section>
+
+    <!-- About 섹션 -->
+    <section id="about">
+        <div class="container">
+            <h2 class="section-title fade-in">About Me</h2>
+            <div class="about-content fade-in">
+                <img src="https://via.placeholder.com/500x400/000000/FFFFFF?text=Profile" alt="이승민 프로필" class="about-image">
+                <div class="about-text">
+                    <p>안녕하세요, 그래픽 디자이너 이승민입니다.</p>
+                    <p>저는 심플하면서도 강렬한 메시지를 전달하는 디자인을 추구합니다. 모든 프로젝트에서 사용자의 경험을 최우선으로 생각하며, 시각적 아름다움과 기능성의 완벽한 조화를 만들어내는 것이 저의 목표입니다.</p>
+                    <p>5년 이상의 실무 경험을 바탕으로 브랜딩, 편집 디자인, UI/UX 디자인 등 다양한 분야에서 활동하고 있습니다. 클라이언트와의 긴밀한 소통을 통해 그들의 비전을 현실로 만드는 것에 큰 보람을 느낍니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills 섹션 -->
+    <section id="skills" style="background-color: #f9f9f9;">
+        <div class="container">
+            <h2 class="section-title fade-in">Skills</h2>
+            <div class="skills-grid">
+                <div class="skill-card fade-in">
+                    <h3>브랜드 아이덴티티</h3>
+                    <p>로고 디자인, 브랜드 가이드라인 제작, 시각적 일관성을 유지하는 브랜딩 작업</p>
+                </div>
+                <div class="skill-card fade-in">
+                    <h3>편집 디자인</h3>
+                    <p>책, 매거진, 브로슈어 등 다양한 인쇄물 디자인 및 레이아웃 구성</p>
+                </div>
+                <div class="skill-card fade-in">
+                    <h3>UI/UX 디자인</h3>
+                    <p>사용자 중심의 인터페이스 디자인, 와이어프레임 및 프로토타입 제작</p>
+                </div>
+                <div class="skill-card fade-in">
+                    <h3>일러스트레이션</h3>
+                    <p>독창적인 일러스트레이션과 아이콘 디자인으로 브랜드 개성 표현</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects 섹션 -->
+    <section id="projects">
+        <div class="container">
+            <h2 class="section-title fade-in">Projects</h2>
+            <div class="projects-grid">
+                <div class="project-card fade-in" onclick="openModal(0)">
+                    <img src="https://via.placeholder.com/400x300/000000/FFFFFF?text=Project+1" alt="Project 1" class="project-image">
+                    <div class="project-info">
+                        <h3>미니멀 브랜드 리뉴얼</h3>
+                        <p>심플하고 모던한 브랜드 아이덴티티 재구축 프로젝트</p>
+                    </div>
+                </div>
+                <div class="project-card fade-in" onclick="openModal(1)">
+                    <img src="https://via.placeholder.com/400x300/000000/FFFFFF?text=Project+2" alt="Project 2" class="project-image">
+                    <div class="project-info">
+                        <h3>모던 매거진 디자인</h3>
+                        <p>타이포그래피와 레이아웃에 집중한 월간 매거진 디자인</p>
+                    </div>
+                </div>
+                <div class="project-card fade-in" onclick="openModal(2)">
+                    <img src="https://via.placeholder.com/400x300/000000/FFFFFF?text=Project+3" alt="Project 3" class="project-image">
+                    <div class="project-info">
+                        <h3>앱 UI/UX 리디자인</h3>
+                        <p>사용자 경험 개선을 위한 모바일 앱 인터페이스 재설계</p>
+                    </div>
+                </div>
+                <div class="project-card fade-in" onclick="openModal(3)">
+                    <img src="https://via.placeholder.com/400x300/000000/FFFFFF?text=Project+4" alt="Project 4" class="project-image">
+                    <div class="project-info">
+                        <h3>일러스트 포스터 시리즈</h3>
+                        <p>블랙 앤 화이트 컨셉의 일러스트레이션 포스터 컬렉션</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact 섹션 -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2 class="section-title fade-in">Contact</h2>
+            <div class="contact-content fade-in">
+                <div class="contact-info">
+                    <p>Email: <a href="mailto:seungmin.lee@email.com">seungmin.lee@email.com</a></p>
+                    <p>Phone: +82 10-1234-5678</p>
+                </div>
+                <div class="social-links">
+                    <a href="#" aria-label="Instagram">📷</a>
+                    <a href="#" aria-label="Behance">🎨</a>
+                    <a href="#" aria-label="LinkedIn">💼</a>
+                    <a href="#" aria-label="GitHub">💻</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2025 이승민. Powered by <a href="https://ai.triz.kr" target="_blank">AI Portfolio Workshop</a>.</p>
+    </footer>
+
+    <!-- 모달 -->
+    <div class="modal" id="projectModal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal()">&times;</span>
+            <img id="modalImage" src="" alt="Project Detail" class="modal-image">
+            <h2 id="modalTitle"></h2>
+            <p id="modalDescription"></p>
+        </div>
     </div>
+
+    <script>
+        // 프로젝트 데이터
+        const projects = [
+            {
+                title: "미니멀 브랜드 리뉴얼",
+                image: "https://via.placeholder.com/900x400/000000/FFFFFF?text=Project+1+Detail",
+                description: "기존 브랜드의 복잡한 요소들을 과감히 제거하고, 본질에 집중한 브랜드 아이덴티티를 구축했습니다. 블랙과 화이트만을 사용한 컬러 팔레트로 시대를 초월하는 디자인을 완성했으며, 심플한 로고와 타이포그래피로 브랜드의 철학을 명확하게 전달합니다. 이 프로젝트는 '덜어내는 디자인'의 힘을 보여주는 대표적인 사례입니다."
+            },
+            {
+                title: "모던 매거진 디자인",
+                image: "https://via.placeholder.com/900x400/000000/FFFFFF?text=Project+2+Detail",
+                description: "타이포그래피를 주요 디자인 요소로 활용한 월간 매거진입니다. 대담한 헤드라인과 여백의 미를 살린 레이아웃으로 독자의 시선을 사로잡습니다. 각 섹션마다 일관된 그리드 시스템을 적용하면서도 페이지마다 독특한 개성을 부여했습니다. 모노톤 컬러로 콘텐츠에 집중하게 하면서도 시각적으로 풍부한 경험을 제공합니다."
+            },
+            {
+                title: "앱 UI/UX 리디자인",
+                image: "https://via.placeholder.com/900x400/000000/FFFFFF?text=Project+3+Detail",
+                description: "복잡했던 사용자 인터페이스를 직관적이고 심플하게 재구성했습니다. 사용자 리서치를 통해 불필요한 기능들을 제거하고, 핵심 기능에 집중할 수 있도록 설계했습니다. 미니멀한 디자인 언어를 적용하여 어떤 연령대의 사용자도 쉽게 사용할 수 있는 인터페이스를 완성했습니다. 앱 사용률이 40% 증가하는 성과를 거두었습니다."
+            },
+            {
+                title: "일러스트 포스터 시리즈",
+                image: "https://via.placeholder.com/900x400/000000/FFFFFF?text=Project+4+Detail",
+                description: "블랙 앤 화이트의 강렬한 대비를 활용한 일러스트레이션 포스터 컬렉션입니다. 각 포스터는 현대 사회의 다양한 이슈들을 추상적이면서도 직관적인 비주얼로 표현합니다. 제한된 색상 팔레트 안에서 명암과 선의 두께 변화만으로 풍부한 표현을 이끌어냈습니다. 이 시리즈는 여러 전시회에 초청되며 큰 호응을 얻었습니다."
+            }
+        ];
+
+        // 모바일 메뉴 토글
+        const menuToggle = document.getElementById('menuToggle');
+        const navMenu = document.getElementById('navMenu');
+
+        menuToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+
+        // 네비게이션 링크 클릭 시 메뉴 닫기
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+            });
+        });
+
+        // 스크롤 시 네비게이션 스타일 변경
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // 스크롤 애니메이션
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // 모달 열기
+        function openModal(index) {
+            const modal = document.getElementById('projectModal');
+            const project = projects[index];
+            
+            document.getElementById('modalImage').src = project.image;
+            document.getElementById('modalTitle').textContent = project.title;
+            document.getElementById('modalDescription').textContent = project.description;
+            
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // 모달 닫기
+        function closeModal() {
+            const modal = document.getElementById('projectModal');
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // 모달 외부 클릭 시 닫기
+        document.getElementById('projectModal').addEventListener('click', (e) => {
+            if (e.target.id === 'projectModal') {
+                closeModal();
+            }
+        });
+
+        // ESC 키로 모달 닫기
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+
+        // 부드러운 스크롤
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const offsetTop = target.offsetTop - 70;
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
 </body>
 </html>
